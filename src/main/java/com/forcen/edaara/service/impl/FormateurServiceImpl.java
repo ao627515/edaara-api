@@ -3,6 +3,7 @@ package com.forcen.edaara.service.impl;
 
 import com.forcen.edaara.dto.FormateurRequestDTO;
 import com.forcen.edaara.dto.response.FormateurResponseDTO;
+import com.forcen.edaara.enums.Role;
 import com.forcen.edaara.mapper.FormateurMapper;
 import com.forcen.edaara.model.Formateur;
 import com.forcen.edaara.repository.FormateurRepository;
@@ -24,6 +25,7 @@ public class FormateurServiceImpl implements FormateurService {
     @Override
     public FormateurResponseDTO ajouterFormateur(FormateurRequestDTO formateurRequestDTO) {
         Formateur formateur = formateurMapper.toEntity(formateurRequestDTO);
+        formateur.setRole(Role.FORMATEUR);
         Formateur savedFormateur = formateurRepository.save(formateur);
         return formateurMapper.toDto(savedFormateur);
     }

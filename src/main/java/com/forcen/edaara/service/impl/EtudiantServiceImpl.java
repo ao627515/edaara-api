@@ -2,6 +2,7 @@ package com.forcen.edaara.service.impl;
 
 import com.forcen.edaara.dto.EtudiantRequestDTO;
 import com.forcen.edaara.dto.response.EtudiantResponseDTO;
+import com.forcen.edaara.enums.Role;
 import com.forcen.edaara.mapper.EtudiantMapper;
 import com.forcen.edaara.model.Etudiant;
 import com.forcen.edaara.model.Parcours;
@@ -23,8 +24,10 @@ public class EtudiantServiceImpl implements EtudiantService {
 
   @Override
   public EtudiantResponseDTO creerEtudiant(EtudiantRequestDTO etudiantRequestDTO) {
-    Etudiant etudiant = etudiantRepository.save(etudiantMapper.toEntity(etudiantRequestDTO));
-    return etudiantMapper.toDto(etudiant);
+    Etudiant etudiant = this.etudiantMapper.toEntity(etudiantRequestDTO);
+    etudiant.setRole(Role.ETUDIANT);
+    etudiant = this.etudiantRepository.save(etudiant);
+    return this.etudiantMapper.toDto(etudiant);
   }
 
   @Override
@@ -34,8 +37,11 @@ public class EtudiantServiceImpl implements EtudiantService {
 
   @Override
   public EtudiantResponseDTO modifierEtudiant(Long id, EtudiantRequestDTO etudiantRequestDTO) {
-    Etudiant existingStudent = etudiantRepository.findById(id)
-            .orElseThrow(() -> new EntityNotFoundException("Étudiant avec l'ID " + id + " introuvable"));
+    Etudiant existingStudent =
+        etudiantRepository
+            .findById(id)
+            .orElseThrow(
+                () -> new EntityNotFoundException("Étudiant avec l'ID " + id + " introuvable"));
 
     Etudiant updatedStudent = etudiantMapper.toEntity(etudiantRequestDTO);
     updatedStudent.setIdUtilisateur(existingStudent.getIdUtilisateur());
@@ -46,22 +52,30 @@ public class EtudiantServiceImpl implements EtudiantService {
 
   @Override
   public void supprimerEtudiant(Long id) {
-    Etudiant existEtudiant = etudiantRepository.findById(id)
-            .orElseThrow(() -> new EntityNotFoundException("Étudiant avec l'ID " + id + " introuvable"));
+    Etudiant existEtudiant =
+        etudiantRepository
+            .findById(id)
+            .orElseThrow(
+                () -> new EntityNotFoundException("Étudiant avec l'ID " + id + " introuvable"));
     etudiantRepository.delete(existEtudiant);
   }
 
   @Override
   public EtudiantResponseDTO obtenirEtudiantParId(Long id) {
-    Etudiant existEtudiant = etudiantRepository.findById(id)
-            .orElseThrow(() -> new EntityNotFoundException("Étudiant avec l'ID " + id + " introuvable"));
+    Etudiant existEtudiant =
+        etudiantRepository
+            .findById(id)
+            .orElseThrow(
+                () -> new EntityNotFoundException("Étudiant avec l'ID " + id + " introuvable"));
     return etudiantMapper.toDto(existEtudiant);
   }
 
   @Override
   public Etudiant obtenirUnParcoursParSonId(Long id) {
-    return etudiantRepository.findById(id)
-            .orElseThrow(() -> new EntityNotFoundException("Étudiant avec l'ID " + id + " introuvable"));
+    return etudiantRepository
+        .findById(id)
+        .orElseThrow(
+            () -> new EntityNotFoundException("Étudiant avec l'ID " + id + " introuvable"));
   }
 
   @Override
@@ -91,5 +105,4 @@ public class EtudiantServiceImpl implements EtudiantService {
     Etudiant updatedEtudiant = etudiantRepository.save(etudiant);
     return etudiantMapper.toDto(updatedEtudiant);
   }
-
 }
