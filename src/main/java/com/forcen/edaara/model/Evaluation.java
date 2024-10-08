@@ -17,10 +17,8 @@ public class Evaluation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idEvaluation;
-
     private String sujet;
     private LocalDate dateEvaluation;
-
     @ManyToOne
     @JoinColumn(name = "id_etudiant")
     private Etudiant etudiant;

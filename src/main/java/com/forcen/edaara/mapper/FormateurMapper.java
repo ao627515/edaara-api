@@ -4,9 +4,15 @@ import com.forcen.edaara.dto.FormateurRequestDTO;
 import com.forcen.edaara.dto.response.FormateurResponseDTO;
 import com.forcen.edaara.model.Formateur;
 import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
+
+import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface FormateurMapper {
-    FormateurResponseDTO toDto(Formateur formateur);
-    Formateur toEntity(FormateurRequestDTO dto);
+    Formateur toEntity(FormateurRequestDTO formateurRequestDTO);
+
+    FormateurResponseDTO toResponseDTO(Formateur formateur);
+
+    void updateFormateurFromDTO(FormateurRequestDTO formateurRequestDTO, @MappingTarget Formateur formateur);
 }

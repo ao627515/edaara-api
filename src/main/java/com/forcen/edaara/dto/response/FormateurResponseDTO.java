@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class FormateurResponseDTO {
+    private Long idUtilisateur;
     private String nom;
     private String prenom;
     private String specialite;

@@ -11,6 +11,5 @@ public class CoursResponseDTO {
     private Long idCours;
     private String nomCours;
     private String description;
-    private String nomFormateur;  // Nom complet du formateur pour affichage
-
+    private String idFormateur;
 }
